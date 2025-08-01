@@ -47,7 +47,22 @@ git clone <address of your github and repo>
     ```
     pip install -r requirements.txt
     ```
-
+## How to install and run Redis on Windows and Linux
+### Windows
+to install redis and running on windows you should use **WSL(Windows Subsystems for Linux)** : 
+* to install WSL you should Open PowerShell as Administrator and run: 
+    ```
+    wsl --install
+    ```
+* if you prefer to use other distro of linux you can see the list of linux distro that is oneline : 
+    ```
+    wsl --list --online
+    ```
+* to install on of them use : 
+    ```
+    wsl --install -d <Distribution Name>
+    ```
+after you install the **wsl** on **windows** you should install **Redis** through this link : [[How to install Redis?]](https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/install-redis-on-windows/)
 ## Tips you should know !
 ### Http Methods
 | Method | Descriptions | 
