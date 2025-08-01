@@ -1,12 +1,20 @@
+# ----------------------------------------
+# Task Model & Feature Logic
+# Author: Alimate and Zali
+# Description:
+# Represents a single task object and operations related to it.
+# Handles creation, editing, deletion, and reminders (to be implemented).
+# ----------------------------------------
+
 import time
 from datetime import datetime
 
-# Docstring by Alimate
+# NOTE: GUI should not be imported here ideally (breaks separation of concerns)
+from GUI.gui_main import new_task_add  
 
 
 class Task:
-    
-    # get current date and time 
+    # Static field to keep creation time consistent for all instances (at class-level)
     current_date_time = datetime.today().ctime()
 
     def __init__(self, title, desctiption, priority, date, state, create_at):
@@ -17,15 +25,18 @@ class Task:
         self.state = state
         self.create_at = create_at
 
-    # to representation the task (optional)
     def __repr__(self):
-        return f"Task({self.title} , {self.description} , {self.priority} , {self.date} , {self.state} , {self.create_at})"
-    # Add task function
+        """
+        String representation of a Task instance.
+        Useful for debugging/logging.
+        """
+        return f"Task({self.title}, {self.description}, {self.priority}, {self.date}, {self.state}, {self.create_at})"
+
     def Add_Task(self):
         """
-        Create the sturcture of the task and pass it to the server side
+        Create the structure of the task and return it as a dictionary.
+        This is what gets stored in the backend (Redis).
         """
-        # forming the structure of the data to send to the server side
         data_structure = {
             "Title": f"{self.title}",
             "Desc": f"{self.description}",
@@ -35,21 +46,31 @@ class Task:
             "Create at": f"{self.current_date_time}",
         }
         return data_structure
-    # for removing task from the task_list
+
     def Remove_Task(self):
+        """
+        TODO[Alimate]: Implement logic to remove task from Redis
+        """
         pass
-    # for editing the tasks
+
     def Edit_Task(self):
+        """
+        TODO[Alimate]: Implement logic to update task fields
+        Possibly requires fetching by ID and re-saving
+        """
         pass
-    # Reminder's , need to be modified later , maybe it will moved from this class 
+
     def Reminders(self):
+        """
+        NOTE: Might be moved to a separate Reminder class/module.
+        Purpose: handle notifications, alerts, or scheduled triggers
+        """
         pass
-    # to fetch list of all tasks (pendings and dones)
+
     def get_list_of_task(self):
-        # for solving the circular import Error we import in this method
+        """
+        Fetch all tasks from backend using Redis handler
+        NOTE: Import done inside method to avoid circular dependency
+        """
         from backend.server import fetch_tasks
         fetch_tasks()
-
-# creating an object (task) for the first time (example)
-task = Task('task number 1' , 'this is the test' , 'Medium' , '7/25/2025' , state='Pending' , create_at=Task.current_date_time)
-
