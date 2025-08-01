@@ -32,7 +32,8 @@ def fetch_tasks():
         print(f"Title : {task.get('Title')}")
         print(f"Desc : {task.get('Desc')}")
         print(f"Date : {task.get('Date')}")
-        print(f"Create at : {task.get('create at')}")
+        print(f"State : {task.get('state')}")
+        print(f"Create at : {task.get('Create at')}")
         print("--------------------------------------------------")
 
 

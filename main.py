@@ -35,7 +35,7 @@ def on_add_task(data_form_gui):
 # ------------------------------
 # App initialization
 # ------------------------------
-
+fetch_tasks()
 # Setup GUI components and pass the logic handler (callback)
 new_task_add(root, on_add_callback=on_add_task)
 
