@@ -20,7 +20,7 @@ root.grid_columnconfigure(1, weight=4)
 
 
 
-def new_task_add(root):
+def new_task_add(root , on_add_callback):
     ## Frame
     # creating the "newTask" frame for widgets
     newtask_frame = tb.Frame(root, bootstyle="dark")
@@ -69,10 +69,36 @@ def new_task_add(root):
     # date_entry widget
     date_entry = tb.DateEntry(newtask_frame)
     date_entry.grid(row=7, column=0, padx=40, pady=20, sticky="w")
+    
+    ## change by Alimate
+    ## data_gathering
+    def data_gather():
+        data_title = title_entry.get()
+        data_descript = description_box.get('1.0' , 'end-1c')
+        data_priority = priority_combo.get()
+        data_date = date_entry.get_date()
 
+        # create a data dictionary to return
+        final_output = {
+            'Title' : data_title,
+            'Description' : data_descript,
+            'Priority' : data_priority,
+            'Date' : data_date
+        }
+        return final_output
+    
+    # for automate the process define the handle function to run automatically
+    def handle_click():
+        data = data_gather()
+        # send data to the out of this function (main.py)
+        on_add_callback(data)
+    
     ## Add button
-    add_button = tb.Button(newtask_frame, text="add task", bootstyle="success")
+    add_button = tb.Button(newtask_frame, text="add task", bootstyle="success" , command=handle_click)
     add_button.grid(row=9, column=0, pady=5)
+
+    # return the data_gather func to receive the data from another file
+    return data_gather
 
 
 
@@ -82,27 +108,4 @@ def show_all_tasks(root):
     tasklist_frame = tb.Frame(root, bootstyle="dark")
     tasklist_frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=50)
 
-
-
-
-new_task_add(root)
-show_all_tasks(root)
-
-
-
-
-
-
-
-
-
-
-
-### Comment by Alimate
-## can you move the button below each other ? 
-## this can be prettier 
-## but totally it is work , yo *$*
-
-
-root.mainloop()
 
